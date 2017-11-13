@@ -138,7 +138,7 @@ private void bubbleDown(int i) {
     if ((left < data.size()) && (data.get(left).compareTo(data.get(i)) > 0)) {
         next = left;
     }
-    if ((right < data.size()) && (data.get(right).compareTo(data.get(k)) > 0)) {
+    if ((right < data.size()) && (data.get(right).compareTo(data.get(next)) > 0)) {
         next = right;
     }
 
@@ -153,7 +153,7 @@ private void bubbleDown(int i) {
 ![](../img/bubbleDown.gif)
 
 
-## Testing
+### Testing
 
 ```java
 private Heap<Integer> heap;
@@ -168,7 +168,8 @@ public void init() {
 }
 ```
 
-## Testing
+
+### Testing
 
 ```java
 @Test
@@ -182,7 +183,8 @@ public void TopOfHeapShouldBeMaxElement() {
 }
 ```
 
-## Testing
+
+### Testing
 
 ```java
 @Test
@@ -196,6 +198,112 @@ public void PoppingElementShouldRemoveMax() {
     Assert.assertEquals(expected, result);
 }
 ```
+
+
+### Whole Class:
+
+(Also see [my github](https://github.com/PatrickMalolepszy/Technical-Interview-Prep-Lectures) for code)
+
+```java 
+// File: Heap.java
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class Heap <T extends Comparable<T>> {
+
+    private List<T> data;
+
+    // Constructor:
+    public Heap() {
+        this.data = new ArrayList<>();
+    }
+
+    // Accessor Methods:
+    public void push(T n) {
+        data.add(n);
+        bubbleUp(data.size() - 1);
+    }
+
+    public T top() {
+        return data.get(0);
+    }
+
+    public void pop() {
+        data.set(0, data.remove(data.size()-1));
+        bubbleDown(0);
+    }
+
+    // Heap Methods -> used to keep satisfy heap property
+    private void bubbleUp(int i) {
+        int parent = i / 2;
+        while (i > 0 && (data.get(i).compareTo(data.get(parent)) > 0 )) {
+            Collections.swap(data, i, parent);
+            i = parent;
+            parent = i / 2;
+        }
+    }
+
+    private void bubbleDown(int i) {
+        int left = 2 * i + 1;
+        int right = 2 * i + 2;
+        int next = i;
+
+        if ((left < data.size()) && (data.get(left).compareTo(data.get(i)) > 0)) {
+            next = left;
+        }
+        if ((right < data.size()) && (data.get(right).compareTo(data.get(next)) > 0)) {
+            next = right;
+        }
+
+        if (next != i) {
+            Collections.swap(data, i, next);
+            bubbleDown(next);
+        }
+    }
+}
+
+// File: HeapTest.java
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+
+public class HeapTest {
+
+    private Heap<Integer> heap;
+
+    @Before
+    public void init() {
+        heap = new Heap<>();
+        heap.push(3);
+        heap.push(2);
+        heap.push(5);
+        heap.push(4);
+    }
+
+    @Test
+    public void TopOfHeapShouldBeMaxElement() {
+        // Arrange
+        int  expected = 5;
+        // Act
+        int result = heap.top();
+        // Assert
+        Assert.assertEquals(expected, result);
+    }
+
+    @Test
+    public void PoppingElementShouldRemoveMax() {
+        // Arrange
+        int expected = 4; // 2nd largest
+        // Act
+        heap.pop();
+        int result = heap.top();
+        // Assert
+        Assert.assertEquals(expected, result);
+    }
+}
+```
+
 
 
 ## Complexity
@@ -216,8 +324,38 @@ public void PoppingElementShouldRemoveMax() {
 * Can act like a priority queue
 * Need to get max/min elements & n is large.
 
+* Should not need to implement in the interview unless requested.
+    * Use your languages built in priority queue or heap instead.
+    * Eg. Java's PriorityQueue or Python's heapify.
+
 
 
 ## Sample Question
 
+Given a non-empty list of words, return the frequencies of the k most frequent words.
+Your answer should be sorted by frequency from highest to lowest. 
 
+
+Eg.
+
+Input: ["the", "day", "is", "sunny", "the", "the", "the", "sunny", "is", "is"], k = 2
+
+Output: [4, 3]
+
+
+
+### Solution
+
+
+## Other ways to solve...
+
+* Sorting -> O(n*Log(n))
+* Selection Algorithm -> O(n)
+
+
+
+## Q & A
+
+
+
+## Thank you!

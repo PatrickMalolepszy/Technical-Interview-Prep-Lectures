@@ -26,6 +26,10 @@ public class Heap <T extends Comparable<T>> {
         bubbleDown(0);
     }
 
+    public int size() {
+        return data.size();
+    }
+
     // Heap Methods -> used to keep satisfy heap property
     private void bubbleUp(int i) {
         int parent = i / 2;
@@ -44,7 +48,7 @@ public class Heap <T extends Comparable<T>> {
         if ((left < data.size()) && (data.get(left).compareTo(data.get(i)) > 0)) {
             next = left;
         }
-        if ((right < data.size()) && (data.get(right).compareTo(data.get(k)) > 0)) {
+        if ((right < data.size()) && (data.get(right).compareTo(data.get(next)) > 0)) {
             next = right;
         }
 
