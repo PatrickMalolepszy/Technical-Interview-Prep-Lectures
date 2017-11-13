@@ -2,7 +2,7 @@ import java.util.*;
 
 public class Solution {
 
-    public List<Integer> kFrequentWords(List<String> words, int k) {
+    public static List<Integer> kFrequentWords(List<String> words, int k) {
         Map<String, Integer> wordCounts = new HashMap<>();
 
         // Count the words: O(n)
@@ -16,20 +16,19 @@ public class Solution {
         }
 
         // Put counts into heap: O(n*log(k))
-        Heap<Integer> heap = new Heap<>();
+        PriorityQueue<Integer> heap = new PriorityQueue<>();
         for (Map.Entry<String, Integer> entry : wordCounts.entrySet()) {
-            heap.push(entry.getValue());
-            if (heap.size() > k) heap.pop();
+            heap.add(entry.getValue());
+            if (heap.size() > k) heap.remove();
         }
 
         // pop every element of heap and into ans list: O(k log(k))
         List<Integer> ans = new ArrayList<>();
         while (heap.size() > 0) {
-            ans.add(heap.top());
-            heap.pop();
+            ans.add(heap.peek());
+            heap.remove();
         }
-        Collections.reverse(ans);
-        return ans;
 
+        return ans;
     }
 }

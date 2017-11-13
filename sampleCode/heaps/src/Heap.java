@@ -21,9 +21,16 @@ public class Heap <T extends Comparable<T>> {
         return data.get(0);
     }
 
+    // TODO: bug here, fix
     public void pop() {
-        data.set(0, data.remove(data.size()-1));
-        bubbleDown(0);
+        if (!data.isEmpty()) {
+            if (data.size() == 1) {
+                data.remove(data.size()-1);
+            } else {
+                data.set(0, data.remove(data.size()-1));
+                bubbleDown(0);
+            }
+        }
     }
 
     public int size() {
