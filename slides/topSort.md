@@ -104,7 +104,7 @@ while (!processNext.isEmpty()) {
 ```
 
 
-#### All of the code: 
+#### All of the code:  (also on [Github](https://github.com/PatrickMalolepszy/Technical-Interview-Prep-Lectures))
 ```java
 // Graph.java
 import java.util.*;
@@ -205,6 +205,27 @@ public class GraphTest {
 
 
 
-## [POTW](https://potw.cs.uwindsor.ca/)
+### Example question:
+
+Your friend wants to build his brand new gaming desktop so he can play Overwatch with you. He has already ordered and received all of the parts, but unfortunately they came with odd instructions to put everything together. Each part provides a list of parts which can be installed after it is added to the system. Help him determine the order to build his computer.
+
+
+```
+Sample Input:
+Motherboard -> GPU, CPU, RAM
+CPU -> HeatSink
+PowerSupply -> Motherboard, GPU, CPU, HHD
+PowerSupply, Motherboard, GPU, CPU, HHD, RAM, HeatSink -> Windows
+Windows -> Overwatch
+
+Sample Output:
+PowerSupply, Motherboard, RAM, CPU, HeatSink, GPU, Windows, Overwatch
+```
+
+
+
+## Thank you
+
+#### Make sure to checkout [POTW](https://potw.cs.uwindsor.ca/)
 
 
